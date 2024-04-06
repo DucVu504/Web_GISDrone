@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cesium 3D Tiles Viewer</title>
+      <!-- Custom styles for this template -->
+    <!-- <link href="static/css/style.css" rel="stylesheet" /> -->
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.91/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.91/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <style>
+        #cesiumContainer {
+            height: 900px;
+            width: 80%;
+            margin: 0;
+            padding: 0;
+            float: right;
+            
+        }
+    </style>
+</head>
+<body>
+    <div id ="cesiumContainer"></div>
+    <script>
+        var viewer = new Cesium.Viewer('cesiumContainer');
+        // // Tắt đồng hồ điều hướng
+        // viewer.disableNavigationControl();
+        // Load 3D Tiles data
+        var tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+            url: 'static/assets/other_assets/tileset.json'
+        }));
+
+        // Xác định khi nào dữ liệu đã được load thành công
+        tileset.readyPromise.then(function(tileset) {
+            // Lấy vị trí của mô hình 3D Tiles
+            var boundingSphere = tileset.boundingSphere;
+            var center = boundingSphere.center;
+            var radius = boundingSphere.radius;
+
+            // Zoom đến vị trí của mô hình
+            viewer.camera.flyToBoundingSphere(boundingSphere);
+        });
+    </script>
+</body>
+</html>
