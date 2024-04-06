@@ -27,5 +27,4 @@ def interactor():
     return render_template('interactor.html')
 
 if __name__ == '__main__':
-    port = 8000
-    app.run(debug=True, port = port)
+    app.run(debug=True)
